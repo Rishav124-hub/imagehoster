@@ -14,7 +14,6 @@ import java.time.ZonedDateTime;
 @Entity
 @Table(name = "USERS", schema = "imagehoster")
 @NamedQueries({
-        @NamedQuery(name = "userByUuid", query = "select u from UserEntity u where u.uuid = :uuid"),
         @NamedQuery(name = "userByEmail", query = "select u from UserEntity u where u.email = :email")
 })
 public class UserEntity implements Serializable {
@@ -56,31 +55,6 @@ public class UserEntity implements Serializable {
 
     @Column(name = "LAST_LOGIN_AT")
     private ZonedDateTime lastLoginAt;
-
-    @Column(name = "CREATED_BY")
-    @NotNull
-    private String createdBy;
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public ZonedDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(ZonedDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    @Column(name = "CREATED_AT")
-    @NotNull
-    private ZonedDateTime createdAt;
-
 
     @Column(name = "SALT")
     @NotNull

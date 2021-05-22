@@ -6,6 +6,7 @@ import com.upgrad.technical.service.business.ImageUploadService;
 import com.upgrad.technical.service.entity.ImageEntity;
 import com.upgrad.technical.service.exception.UploadFailedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -38,6 +39,6 @@ public class ImageUploadController {
 
         final ImageEntity createdimageEntity = imageUploadService.upload(imageEntity, authorization);
         ImageUploadResponse imageUploadResponse = new ImageUploadResponse().id(createdimageEntity.getUuid()).status("IMAGE SUCCESSFULLY REGISTERED");
-        return null;
+        return new ResponseEntity<ImageUploadResponse>(imageUploadResponse, HttpStatus.CREATED);
     }
 }

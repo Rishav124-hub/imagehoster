@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Service
 public class ImageUploadService {
 
@@ -18,8 +19,8 @@ public class ImageUploadService {
     @Transactional(propagation = Propagation.REQUIRED)
     public ImageEntity upload(ImageEntity imageEntity, final String authorizationToken) throws UploadFailedException {
         UserAuthTokenEntity userAuthTokenEntity = imageDao.getUserAuthToken(authorizationToken);
-
         imageEntity.setUser_id(userAuthTokenEntity.getUser());
-        return null;
+        imageDao.createImage(imageEntity);
+        return imageEntity;
     }
 }
