@@ -35,10 +35,15 @@ public class ImageDao {
     }
 
     public ImageEntity getImageById(final long Id) {
-        return null;
+        try {
+            return entityManager.createNamedQuery("ImageEntityByid",ImageEntity.class).setParameter("id",Id).getSingleResult();
+        }catch (NoResultException nre){
+            return null;
+        }
     }
 
     public ImageEntity updateImage(final ImageEntity imageEntity) {
-        return null;
+        entityManager.merge(imageEntity);
+        return imageEntity;
     }
 }

@@ -46,7 +46,7 @@ public class AdminController {
 
         ImageEntity updatedimageEntity = adminService.updateImage(imageEntity, authorization);
         UpdateImageResponse updateImageResponse = new UpdateImageResponse().id((int) updatedimageEntity.getId()).status(updatedimageEntity.getStatus());
-        return null;
+        return new ResponseEntity<UpdateImageResponse>(updateImageResponse,HttpStatus.OK);
     }
 
 }
