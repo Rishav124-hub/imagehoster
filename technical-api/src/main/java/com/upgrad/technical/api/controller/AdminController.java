@@ -10,13 +10,12 @@ import com.upgrad.technical.service.exception.ImageNotFoundException;
 import com.upgrad.technical.service.exception.UnauthorizedException;
 import com.upgrad.technical.service.exception.UserNotSignedInException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+@RestController
 @RequestMapping("/")
 public class AdminController {
 
@@ -30,7 +29,7 @@ public class AdminController {
         final ImageEntity imageEntity = adminService.getImage(imageUuid, authorization);
 
         ImageDetailsResponse imageDetailsResponse = new ImageDetailsResponse().image(imageEntity.getImage()).id((int) imageEntity.getId()).name(imageEntity.getName()).description(imageEntity.getDescription()).status(imageEntity.getStatus());
-        return null;
+        return new ResponseEntity<ImageDetailsResponse>(imageDetailsResponse, HttpStatus.OK);
     }
 
 

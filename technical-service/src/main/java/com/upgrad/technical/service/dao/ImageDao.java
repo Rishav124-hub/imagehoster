@@ -27,7 +27,11 @@ public class ImageDao {
     }
 
     public ImageEntity getImage(final String imageUuid) {
-        return null;
+        try {
+            return entityManager.createNamedQuery("ImageEntityByUuid",ImageEntity.class).setParameter("uuid", imageUuid).getSingleResult();
+        }catch (NoResultException nre){
+            return null;
+        }
     }
 
     public ImageEntity getImageById(final long Id) {
