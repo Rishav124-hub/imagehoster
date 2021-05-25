@@ -39,6 +39,7 @@ public class ImageUploadController {
 
         final ImageEntity createdimageEntity = imageUploadService.upload(imageEntity, authorization);
         ImageUploadResponse imageUploadResponse = new ImageUploadResponse().id(createdimageEntity.getUuid()).status("IMAGE SUCCESSFULLY REGISTERED");
+//        Returning imageUuid of image uploaded with HttpStatus 201
         return new ResponseEntity<ImageUploadResponse>(imageUploadResponse, HttpStatus.CREATED);
     }
 }

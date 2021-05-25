@@ -24,9 +24,12 @@ public class AuthenticationService {
     @Transactional(propagation = Propagation.REQUIRED)
     public UserAuthTokenEntity authenticate(final String username, final String password) throws AuthenticationFailedException {
         UserEntity userEntity = userDao.getUserByEmail(username);
+//        Exception Handling
         if(userEntity==null){
+//            Exception Handling for wrong email
             throw new AuthenticationFailedException("ATH-001","User with email not found");
         }
+//        work on encrypt password
         final String encryptedPassword = CryptographyProvider.encrypt(password, userEntity.getSalt());
         if(encryptedPassword.equals(userEntity.getPassword())){
             JwtTokenProvider jwtTokenProvider=new JwtTokenProvider(encryptedPassword);
@@ -37,13 +40,12 @@ public class AuthenticationService {
             userAuthToken.setAccessToken(jwtTokenProvider.generateToken(userEntity.getUuid(),now,expiresAt));
             userAuthToken.setLoginAt(now);
             userAuthToken.setExpiresAt(expiresAt);
-//            userAuthToken.setCreatedBy("api-backend");
-//            userAuthToken.setCreatedAt(now);
             userDao.createAuthToken(userAuthToken);
             userDao.updateUser(userEntity);
             userEntity.setLastLoginAt(now);
             return userAuthToken;
         }else {
+//            exception for wrong password
             throw new AuthenticationFailedException("ATH-002","Password Failed");
         }
     }

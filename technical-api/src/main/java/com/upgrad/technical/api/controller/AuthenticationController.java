@@ -39,6 +39,7 @@ public class AuthenticationController {
                 .lastLoginTime(user.getLastLoginAt()).role(user.getRole());
         HttpHeaders headers = new HttpHeaders();
         headers.add("access-token", userAuthToken.getAccessToken());
+//        Returning user Data and access-token when user sign in with HttpStatus of 200
         return new ResponseEntity<AuthorizedUserResponse>(authorizedUserResponse,headers, HttpStatus.OK);
     }
 }
